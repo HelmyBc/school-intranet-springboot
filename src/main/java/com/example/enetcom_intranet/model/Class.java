@@ -6,21 +6,22 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
-
-@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Feature extends BaseEntity {
+@Entity
+@Table(name = "class")
+public class Class {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private int id;
 
-    private String title;
-    private String description;
-    private String imageUrl;
+    //private Department department;
+
+    private String shortName;
 
 }

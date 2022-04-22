@@ -38,6 +38,10 @@ public class FeatureServiceImpl implements FeatureService {
         Feature featureFromDb = featureRepository.findById(id).get();
         System.out.println(featureFromDb.toString());
         featureFromDb.setDescription(feature.getDescription());
+        featureFromDb.setImageUrl(feature.getImageUrl());
+        featureFromDb.setTitle(feature.getTitle());
+
+
         featureRepository.save(featureFromDb);
     }
 
