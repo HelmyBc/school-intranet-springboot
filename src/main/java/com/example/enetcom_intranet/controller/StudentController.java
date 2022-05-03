@@ -39,6 +39,11 @@ public class StudentController {
         return new ResponseEntity<>(studentService.getStudentById(id), HttpStatus.OK);
     }
 
+    @GetMapping({"/{id}/posts"})
+    public ResponseEntity<List<Integer>> getStudentPosts(@PathVariable Integer id) {
+        return new ResponseEntity<>(studentService.getStudentById(id).getPostsId(), HttpStatus.OK);
+    }
+
     //The function receives a POST request, processes it, creates a new Student and saves it to the database, and returns a resource link to the created student.
     @PostMapping
     public ResponseEntity<Student> saveStudent(@RequestBody Student student) {
@@ -47,7 +52,7 @@ public class StudentController {
         httpHeaders.add("student",
                 "/api/student/" + student1.getId());
         classeService.addToClasseStudentsList(student.getId(), student.getClasseId());
-        departmentService.addToDepartmentStudentsList( student.getDepId(),student.getId());
+        departmentService.addToDepartmentStudentsList(student.getDepId(), student.getId());
         return new ResponseEntity<>(student1, HttpStatus.CREATED);
     }
 
@@ -61,8 +66,8 @@ public class StudentController {
     //The function receives a DELETE request, deletes the Student with the specified id.
     @DeleteMapping({"/{id}"})
     public ResponseEntity<Student> deleteStudent(@PathVariable("id") Integer id) {
-        classeService.deleteFromClasseStudentsList(id,studentService.getStudentById(id).getClasseId());
-        departmentService.deleteFromDepartmentStudentsList(studentService.getStudentById(id).getDepId(),id);
+        classeService.deleteFromClasseStudentsList(id, studentService.getStudentById(id).getClasseId());
+        departmentService.deleteFromDepartmentStudentsList(studentService.getStudentById(id).getDepId(), id);
         studentService.deleteStudent(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         //create a statement for deleted posts after deleting the student

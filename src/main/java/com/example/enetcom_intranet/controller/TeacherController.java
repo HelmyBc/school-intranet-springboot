@@ -40,6 +40,11 @@ public class TeacherController {
         return new ResponseEntity<>(teacherService.getTeacherById(id), HttpStatus.OK);
     }
 
+    @GetMapping({"/{id}/posts"})
+    public ResponseEntity<List<Integer>> getTeacherPosts(@PathVariable Integer id) {
+        return new ResponseEntity<>(teacherService.getTeacherById(id).getPostsId(), HttpStatus.OK);
+    }
+
     //The function receives a POST request, processes it, creates a new Student and saves it to the database, and returns a resource link to the created student.
     @PostMapping
     public ResponseEntity<Teacher> saveTeacher(@RequestBody Teacher teacher) {
