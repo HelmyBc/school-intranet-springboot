@@ -1,10 +1,10 @@
 package com.example.enetcom_intranet.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Data
@@ -26,5 +26,13 @@ public abstract class User {
     private int phone;
     private String imageUrl = "https://icon-library.com/images/default-user-icon/default-user-icon-13.jpg";
 
+    //all logics are done for users
+    @ElementCollection
+    private List<Integer> postsId = new ArrayList<>();
+
+//    @OneToMany(cascade = CascadeType.ALL , fetch = FetchType.LAZY)
+//    @JoinColumn(name = "user_id")
+//    @OnDelete(action = OnDeleteAction.CASCADE)
+//    private List<Post> posts;
 
 }

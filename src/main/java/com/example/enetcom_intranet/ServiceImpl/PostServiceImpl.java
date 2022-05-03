@@ -1,7 +1,9 @@
 package com.example.enetcom_intranet.ServiceImpl;
 
 import com.example.enetcom_intranet.model.Post;
+import com.example.enetcom_intranet.model.User;
 import com.example.enetcom_intranet.repository.PostRepository;
+import com.example.enetcom_intranet.repository.UserRepository;
 import com.example.enetcom_intranet.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,9 @@ import java.util.List;
 public class PostServiceImpl implements PostService {
     @Autowired
     PostRepository postRepository;
+
+    @Autowired
+    UserRepository userRepository;
 
 
     @Override
@@ -45,5 +50,26 @@ public class PostServiceImpl implements PostService {
     public void deletePost(Integer id) {
         postRepository.deleteById(id);
     }
+
+    @Override
+    public List<Integer> addToPostsList(Integer uid, Integer pid) {
+        User userFromDb = userRepository.findById(uid).get();
+        List<Integer> oldList = userFromDb.getPostsId();
+        oldList.add(pid);
+        userFromDb.setPostsId(oldList);
+        userRepository.save(userFromDb);
+        return oldList;
+    }
+
+    @Override
+    public List<Integer> deleteFromPostsList(Integer uid, Integer pid) {
+        User userFromDb = userRepository.findById(uid).get();
+        List<Integer> oldList = userFromDb.getPostsId();
+        oldList.remove(pid);
+        userFromDb.setPostsId(oldList);
+        userRepository.save(userFromDb);
+        return oldList;
+    }
+
 
 }

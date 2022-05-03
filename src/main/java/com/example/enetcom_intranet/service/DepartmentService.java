@@ -15,4 +15,17 @@ public interface DepartmentService {
     void updateDepartment(Integer id, Department d);
 
     void deleteDepartment(Integer id);
+
+    List<Integer> addToDepartmentClassesList(Integer did, Integer cid);
+
+    List<Integer> deleteFromDepartmentClassesList(Integer did, Integer cid);
+
+    List<Integer> addToDepartmentStudentsList(Integer did, Integer sid);
+
+    List<Integer> deleteFromDepartmentStudentsList(Integer did, Integer sid);
+
+    List<Integer> addToDepartmentTeachersList(Integer did, Integer tid);
+
+    List<Integer> deleteFromDepartmentTeachersList(Integer did, Integer tid);
+
 }

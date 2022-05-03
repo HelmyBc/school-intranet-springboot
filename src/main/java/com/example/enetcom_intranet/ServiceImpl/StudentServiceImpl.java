@@ -1,7 +1,9 @@
 package com.example.enetcom_intranet.ServiceImpl;
 
 
+import com.example.enetcom_intranet.model.Classe;
 import com.example.enetcom_intranet.model.Student;
+import com.example.enetcom_intranet.repository.ClasseRepository;
 import com.example.enetcom_intranet.repository.StudentRepository;
 import com.example.enetcom_intranet.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +14,12 @@ import java.util.List;
 
 @Service
 public class StudentServiceImpl implements StudentService {
+
     @Autowired
     StudentRepository studentRepository;
+
+    @Autowired
+    ClasseRepository classeRepository;
 
 
     @Override
@@ -41,7 +47,10 @@ public class StudentServiceImpl implements StudentService {
         studentFromDb.setName(s.getName());
         studentFromDb.setEmail(s.getEmail());
         studentFromDb.setPhone(s.getPhone());
+        studentFromDb.setDepId(s.getDepId());
+        studentFromDb.setClasseId(s.getClasseId());
         studentFromDb.setImageUrl(s.getImageUrl());
+        studentFromDb.setPostsId(s.getPostsId());
         studentRepository.save(studentFromDb);
     }
 
@@ -49,4 +58,6 @@ public class StudentServiceImpl implements StudentService {
     public void deleteStudent(Integer id) {
         studentRepository.deleteById(id);
     }
+
+
 }

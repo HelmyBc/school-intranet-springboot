@@ -15,4 +15,8 @@ public interface TeacherService {
     void updateTeacher(Integer id, Teacher t);
 
     void deleteTeacher(Integer id);
+
+    List<Integer> addToDepartmentTeachersList(Integer tid, Integer did);
+
+    List<Integer> deleteFromDepartmentTeachersList(Integer tid, Integer cid);
 }

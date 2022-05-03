@@ -21,13 +21,13 @@ public class UserController {
     //The function receives a GET request, processes it and gives back a list of Student as a response.
     @GetMapping
     public ResponseEntity<List<User>> getAllSUsers() {
-        List<User> teachers = userService.getUsers();
-        return new ResponseEntity<>(teachers, HttpStatus.OK);
+        List<User> users = userService.getUsers();
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
     //The function receives a GET request, processes it, and gives back a list of student as a response.
     @GetMapping({"/{id}"})
-    public ResponseEntity<User> getTeacher(@PathVariable Integer id) {
+    public ResponseEntity<User> getUser(@PathVariable Integer id) {
         return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
     }
 

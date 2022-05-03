@@ -2,6 +2,7 @@ package com.example.enetcom_intranet.controller;
 
 import com.example.enetcom_intranet.model.Post;
 import com.example.enetcom_intranet.service.PostService;
+import com.example.enetcom_intranet.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,9 @@ import java.util.List;
 public class PostController {
     @Autowired
     PostService postService;
+
+    @Autowired
+    UserService userService;
 
 
     //The function receives a GET request, processes it and gives back a list of Student as a response.
@@ -33,11 +37,12 @@ public class PostController {
 
     //The function receives a POST request, processes it, creates a new Student and saves it to the database, and returns a resource link to the created student.
     @PostMapping
-    public ResponseEntity<Post> saveDepartment(@RequestBody Post post) {
+    public ResponseEntity<Post> savePost(@RequestBody Post post) {
         Post post1 = postService.insert(post);
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("post",
                 "/api/post/" + post1.getId());
+        postService.addToPostsList(post.getUid(), post.getId());
         return new ResponseEntity<>(post1, HttpStatus.CREATED);
     }
 
@@ -51,6 +56,8 @@ public class PostController {
     //The function receives a DELETE request, deletes the Student with the specified Id.
     @DeleteMapping({"/{id}"})
     public ResponseEntity<Post> deletePost(@PathVariable("id") Integer id) {
+        Post post = postService.getPostById(id);
+        postService.deleteFromPostsList(post.getUid(), id);
         postService.deletePost(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

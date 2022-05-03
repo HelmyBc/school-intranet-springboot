@@ -38,6 +38,7 @@ public class DepartmentController {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("department",
                 "/api/department/" + department1.getId());
+
         return new ResponseEntity<>(department1, HttpStatus.CREATED);
     }
 

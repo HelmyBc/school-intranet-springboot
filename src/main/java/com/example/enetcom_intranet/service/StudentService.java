@@ -16,4 +16,6 @@ public interface StudentService {
     void updateStudent(Integer id, Student s);
 
     void deleteStudent(Integer id);
+
+
 }

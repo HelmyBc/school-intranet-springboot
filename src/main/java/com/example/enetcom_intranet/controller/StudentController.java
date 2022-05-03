@@ -1,8 +1,10 @@
 package com.example.enetcom_intranet.controller;
 
 
-import com.example.enetcom_intranet.service.StudentService;
 import com.example.enetcom_intranet.model.Student;
+import com.example.enetcom_intranet.service.ClasseService;
+import com.example.enetcom_intranet.service.DepartmentService;
+import com.example.enetcom_intranet.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -16,6 +18,12 @@ import java.util.List;
 public class StudentController {
     @Autowired
     StudentService studentService;
+
+    @Autowired
+    ClasseService classeService;
+
+    @Autowired
+    DepartmentService departmentService;
 
 
     //The function receives a GET request, processes it and gives back a list of Student as a response.
@@ -38,6 +46,8 @@ public class StudentController {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("student",
                 "/api/student/" + student1.getId());
+        classeService.addToClasseStudentsList(student.getId(), student.getClasseId());
+        departmentService.addToDepartmentStudentsList( student.getDepId(),student.getId());
         return new ResponseEntity<>(student1, HttpStatus.CREATED);
     }
 
@@ -48,10 +58,13 @@ public class StudentController {
         return new ResponseEntity<>(studentService.getStudentById(id), HttpStatus.OK);
     }
 
-    //The function receives a DELETE request, deletes the Student with the specified Id.
+    //The function receives a DELETE request, deletes the Student with the specified id.
     @DeleteMapping({"/{id}"})
     public ResponseEntity<Student> deleteStudent(@PathVariable("id") Integer id) {
+        classeService.deleteFromClasseStudentsList(id,studentService.getStudentById(id).getClasseId());
+        departmentService.deleteFromDepartmentStudentsList(studentService.getStudentById(id).getDepId(),id);
         studentService.deleteStudent(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        //create a statement for deleted posts after deleting the student
     }
 }
