@@ -20,7 +20,7 @@ public class UserController {
 
     //The function receives a GET request, processes it and gives back a list of Student as a response.
     @GetMapping
-    public ResponseEntity<List<User>> getAllSUsers() {
+    public ResponseEntity<List<User>> getAllUsers() {
         List<User> users = userService.getUsers();
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
