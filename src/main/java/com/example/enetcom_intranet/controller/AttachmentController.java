@@ -29,7 +29,9 @@ public class AttachmentController {
                 .path(String.valueOf(attachment.getId()))
                 .toUriString();
 
-        return new ResponseData(attachment.getFileName(),
+
+        return new ResponseData(
+                attachment.getFileName(),
                 downloadURl,
                 file.getContentType(),
                 file.getSize());

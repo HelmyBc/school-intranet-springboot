@@ -18,6 +18,7 @@ public class Post extends BaseEntity {
     private String username;
     private int uid;
     private String profImage;
+    //
     private String imageUrl;
 
 //    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
