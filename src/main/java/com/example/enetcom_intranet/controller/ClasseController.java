@@ -19,8 +19,6 @@ public class ClasseController {
     @Autowired
     ClasseService classeService;
 
-    @Autowired
-    UserService userService;
 
     @Autowired
     DepartmentService departmentService;
@@ -50,14 +48,14 @@ public class ClasseController {
         return new ResponseEntity<>(classe1, HttpStatus.CREATED);
     }
 
-    //The function receives a PUT request, updates the Student with the specified Id and returns the updated student
+    //The function receives a PUT request, updates the Student with the specified id and returns the updated student
     @PutMapping({"/{id}"})
     public ResponseEntity<Classe> updateClasse(@PathVariable("id") Integer id, @RequestBody Classe post) {
         classeService.updateClasse(id, post);
         return new ResponseEntity<>(classeService.getClasseById(id), HttpStatus.OK);
     }
 
-    //The function receives a DELETE request, deletes the Student with the specified Id.
+    //The function receives a DELETE request, deletes the Student with the specified id.
     @DeleteMapping({"/{id}"})
     public ResponseEntity<Classe> deleteClasse(@PathVariable("id") Integer id) {
         departmentService.deleteFromDepartmentClassesList(classeService.getClasseById(id).getDepId(),id);

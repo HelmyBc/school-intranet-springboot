@@ -46,7 +46,7 @@ public class PostController {
         return new ResponseEntity<>(post1, HttpStatus.CREATED);
     }
 
-    //The function receives a PUT request, updates the Student with the specified Id and returns the updated student
+      //The function receives a PUT request, updates the Student with the specified Id and returns the updated student
     @PutMapping({"/{id}"})
     public ResponseEntity<Post> updateDepartment(@PathVariable("id") Integer id, @RequestBody Post post) {
         postService.updatePost(id, post);
