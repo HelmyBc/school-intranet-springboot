@@ -2,11 +2,14 @@ package com.example.enetcom_intranet.controller;
 
 import com.example.enetcom_intranet.ResponseData;
 import com.example.enetcom_intranet.model.Attachment;
+import com.example.enetcom_intranet.model.Department;
+import com.example.enetcom_intranet.model.Post;
 import com.example.enetcom_intranet.service.AttachmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +23,7 @@ public class AttachmentController {
 
 
     @PostMapping("/api/upload")
-    public ResponseData uploadFile(@RequestParam("file") MultipartFile file) throws Exception {
+    public ResponseEntity<Attachment> uploadFile(@RequestParam("file") MultipartFile file) throws Exception {
         Attachment attachment = null;
         String downloadURl = "";
         attachment = attachmentService.saveAttachment(file);
@@ -28,13 +31,18 @@ public class AttachmentController {
                 .path("api/download/")
                 .path(String.valueOf(attachment.getId()))
                 .toUriString();
-
-
-        return new ResponseData(
+        ResponseData responseData = new ResponseData(
                 attachment.getFileName(),
                 downloadURl,
                 file.getContentType(),
                 file.getSize());
+        return new ResponseEntity<>(attachment, HttpStatus.CREATED);
+
+    }
+
+    @GetMapping({"/api/attachment/{id}"})
+    public ResponseEntity<Attachment> getAttachment(@PathVariable Integer id) {
+        return new ResponseEntity<>(attachmentService.getAttachmentById(id), HttpStatus.OK);
     }
 
     @GetMapping("/api/download/{fileId}")

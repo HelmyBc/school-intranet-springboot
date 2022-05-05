@@ -2,6 +2,7 @@ package com.example.enetcom_intranet.ServiceImpl;
 
 
 import com.example.enetcom_intranet.model.Attachment;
+import com.example.enetcom_intranet.model.Classe;
 import com.example.enetcom_intranet.repository.AttachmentRepository;
 import com.example.enetcom_intranet.service.AttachmentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,15 +10,24 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
-public class AttachmentServiceImpl implements AttachmentService {
+    public class AttachmentServiceImpl implements AttachmentService {
     @Autowired
     private AttachmentRepository attachmentRepository;
 
 
     @Override
+    public Attachment getAttachmentById(Integer id) {
+        return attachmentRepository.findById(id).get();
+    }
+
+    @Override
     public Attachment saveAttachment(MultipartFile file) throws Exception {
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+
         try {
             if (fileName.contains("..")) {
                 throw new Exception("Filename contains invalid path sequence "

@@ -1,9 +1,11 @@
 package com.example.enetcom_intranet.model;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -18,7 +20,7 @@ public class Post extends BaseEntity {
     private String username;
     private int uid;
     private String profImage;
-    //
+    private int imageId;
     private String imageUrl;
 
 //    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
