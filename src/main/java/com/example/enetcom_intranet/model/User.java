@@ -22,6 +22,7 @@ public abstract class User {
 
     private String name;
     private String email;
+    private String password;
     private int cin;
     private int phone;
     private String imageUrl = "https://icon-library.com/images/default-user-icon/default-user-icon-13.jpg";

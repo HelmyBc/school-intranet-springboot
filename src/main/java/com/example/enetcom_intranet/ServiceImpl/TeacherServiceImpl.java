@@ -45,6 +45,7 @@ public class TeacherServiceImpl implements TeacherService {
         teacherFromDb.setCin(t.getCin());
         teacherFromDb.setName(t.getName());
         teacherFromDb.setEmail(t.getEmail());
+        teacherFromDb.setPassword(t.getPassword());
         teacherFromDb.setPhone(t.getPhone());
         teacherFromDb.setDepId(t.getDepId());
         teacherFromDb.setClassesId(t.getClassesId());

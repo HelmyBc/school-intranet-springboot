@@ -39,6 +39,7 @@ public class UserServiceImpl implements UserService {
         userFromDb.setCin(u.getCin());
         userFromDb.setName(u.getName());
         userFromDb.setEmail(u.getEmail());
+        userFromDb.setPassword(u.getPassword());
         userFromDb.setPhone(u.getPhone());
         userFromDb.setImageUrl(u.getImageUrl());
         userFromDb.setPostsId(u.getPostsId());
