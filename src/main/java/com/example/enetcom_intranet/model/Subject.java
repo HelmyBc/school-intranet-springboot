@@ -20,7 +20,6 @@ public class Subject {
 
     private String name;
 
-
     @ElementCollection
     private List<Integer> coursesIds = new ArrayList<>();
 
