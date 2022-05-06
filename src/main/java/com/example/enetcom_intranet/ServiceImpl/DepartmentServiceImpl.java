@@ -76,6 +76,7 @@ public class DepartmentServiceImpl implements DepartmentService {
         departmentRepository.save(department);
         return oldList;
 
+
     }
 
     @Override
@@ -90,17 +91,13 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public List<Integer> deleteFromDepartmentStudentsList(Integer did, Integer sid) {
-        if (departmentRepository.findById(did).isPresent()) {
-            Department department = departmentRepository.findById(did).get();
-            List<Integer> oldList = department.getStudentsId();
-            oldList.remove(sid);
-            department.setStudentsId(oldList);
-            departmentRepository.save(department);
-            return oldList;
-        } else {
+        Department department = departmentRepository.findById(did).get();
+        List<Integer> oldList = department.getStudentsId();
+        oldList.remove(sid);
+        department.setStudentsId(oldList);
+        departmentRepository.save(department);
+        return oldList;
 
-            return Collections.emptyList();
-        }
     }
 
     @Override
@@ -115,17 +112,13 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public List<Integer> deleteFromDepartmentTeachersList(Integer did, Integer tid) {
-        if (departmentRepository.findById(did).isPresent()) {
-            Department department = departmentRepository.findById(did).get();
-            List<Integer> oldList = department.getTeachersId();
-            oldList.remove(tid);
-            department.setTeachersId(oldList);
-            departmentRepository.save(department);
-            return oldList;
-        } else {
+        Department department = departmentRepository.findById(did).get();
+        List<Integer> oldList = department.getTeachersId();
+        oldList.remove(tid);
+        department.setTeachersId(oldList);
+        departmentRepository.save(department);
+        return oldList;
 
-            return Collections.emptyList();
-        }
     }
 
 

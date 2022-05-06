@@ -37,18 +37,12 @@ public class UserServiceImpl implements UserService {
         User userFromDb = userRepository.findById(id).get();
         System.out.println(userFromDb.toString());
         userFromDb.setCin(u.getCin());
-        userFromDb.setName(u.getName());
+        userFromDb.setFirstName(u.getFirstName());
+        userFromDb.setLastName(u.getLastName());
         userFromDb.setEmail(u.getEmail());
         userFromDb.setPassword(u.getPassword());
         userFromDb.setPhone(u.getPhone());
         userFromDb.setImageUrl(u.getImageUrl());
-        userFromDb.setPostsId(u.getPostsId());
-        userRepository.save(userFromDb);
-    }
-
-    public void addPostToPostsList(Integer id, User u,Integer pid) {
-        User userFromDb = userRepository.findById(id).get();
-        System.out.println(userFromDb.toString());
         userFromDb.setPostsId(u.getPostsId());
         userRepository.save(userFromDb);
     }

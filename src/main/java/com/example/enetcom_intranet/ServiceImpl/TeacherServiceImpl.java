@@ -43,11 +43,14 @@ public class TeacherServiceImpl implements TeacherService {
         Teacher teacherFromDb = teacherRepository.findById(id).get();
         System.out.println(teacherFromDb.toString());
         teacherFromDb.setCin(t.getCin());
-        teacherFromDb.setName(t.getName());
+        teacherFromDb.setFirstName(t.getFirstName());
+        teacherFromDb.setLastName(t.getLastName());
         teacherFromDb.setEmail(t.getEmail());
         teacherFromDb.setPassword(t.getPassword());
         teacherFromDb.setPhone(t.getPhone());
         teacherFromDb.setDepId(t.getDepId());
+        teacherFromDb.setChefDep(t.isChefDep());
+
         teacherFromDb.setClassesId(t.getClassesId());
         teacherFromDb.setImageUrl(t.getImageUrl());
         teacherRepository.save(teacherFromDb);

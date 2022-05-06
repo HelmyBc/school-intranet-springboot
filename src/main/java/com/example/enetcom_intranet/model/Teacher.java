@@ -2,6 +2,7 @@ package com.example.enetcom_intranet.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.DiscriminatorValue;
@@ -24,7 +25,9 @@ public class Teacher extends User {
     @ElementCollection
     private List<Integer> classesId = new ArrayList<>();
 
-//    @ManyToOne(cascade=CascadeType.ALL,fetch = FetchType.LAZY)
+
+
+    //    @ManyToOne(cascade=CascadeType.ALL,fetch = FetchType.LAZY)
 //    @JoinColumn(name = "department_id")
 //    private Department department;
 

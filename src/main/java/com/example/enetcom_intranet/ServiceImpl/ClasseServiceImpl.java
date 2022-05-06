@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -67,6 +68,7 @@ public class ClasseServiceImpl implements ClasseService {
         classe.setStudentsId(oldList);
         classeRepository.save(classe);
         return oldList;
+
     }
 
     @Override
@@ -81,12 +83,13 @@ public class ClasseServiceImpl implements ClasseService {
 
     @Override
     public List<Integer> deleteFromClasseTeachersList(Integer tid, Integer cid) {
-        Classe classe = classeRepository.findById(cid).get();
-        List<Integer> oldList = classe.getTeachersId();
-        oldList.remove(tid);
-        classe.setTeachersId(oldList);
-        classeRepository.save(classe);
-        return oldList;
+            Classe classe = classeRepository.findById(cid).get();
+            List<Integer> oldList = classe.getTeachersId();
+            oldList.remove(tid);
+            classe.setTeachersId(oldList);
+            classeRepository.save(classe);
+            return oldList;
+
     }
 
 

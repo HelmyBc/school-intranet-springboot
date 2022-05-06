@@ -44,7 +44,8 @@ public class StudentServiceImpl implements StudentService {
         Student studentFromDb = studentRepository.findById(id).get();
         System.out.println(studentFromDb.toString());
         studentFromDb.setCin(s.getCin());
-        studentFromDb.setName(s.getName());
+        studentFromDb.setFirstName(s.getFirstName());
+        studentFromDb.setLastName(s.getLastName());
         studentFromDb.setEmail(s.getEmail());
         studentFromDb.setPassword(s.getPassword());
         studentFromDb.setPhone(s.getPhone());
