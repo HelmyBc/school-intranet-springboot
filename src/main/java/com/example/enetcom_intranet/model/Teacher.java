@@ -26,25 +26,4 @@ public class Teacher extends User {
     private List<Integer> classesId = new ArrayList<>();
 
 
-
-    //    @ManyToOne(cascade=CascadeType.ALL,fetch = FetchType.LAZY)
-//    @JoinColumn(name = "department_id")
-//    private Department department;
-
-//
-//    //@JoinTable(name = "teacher_classes",joinColumns = @JoinColumn(name = "teacherId"),inverseJoinColumns = @JoinColumn(name = "classeId"),)
-
-
-//    @ManyToMany(cascade=CascadeType.ALL,fetch = FetchType.LAZY)
-//    private List<Classe> classes=new ArrayList<>();
-
-//    public void addClass(Classe classe){
-//        classes.add(classe);
-//    }
-//
-//    public void removeClass(Classe classe){
-//        classes.remove(classe);
-//    }
-
-
 }

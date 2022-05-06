@@ -3,6 +3,7 @@ package com.example.enetcom_intranet.ServiceImpl;
 
 import com.example.enetcom_intranet.model.Attachment;
 import com.example.enetcom_intranet.model.Classe;
+import com.example.enetcom_intranet.model.Post;
 import com.example.enetcom_intranet.repository.AttachmentRepository;
 import com.example.enetcom_intranet.service.AttachmentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +15,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-    public class AttachmentServiceImpl implements AttachmentService {
+public class AttachmentServiceImpl implements AttachmentService {
     @Autowired
     private AttachmentRepository attachmentRepository;
 
+
+    @Override
+    public List<Attachment> getAttachments() {
+        List<Attachment> attachments = new ArrayList<>();
+        attachmentRepository.findAll().forEach(attachments::add);
+        return attachments;
+    }
 
     @Override
     public Attachment getAttachmentById(Integer id) {

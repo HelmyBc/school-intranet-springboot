@@ -4,28 +4,27 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Subject {
+public class Td extends BaseEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     private String name;
 
+    private int subjectId;
 
-    @ElementCollection
-    private List<Integer> coursesIds = new ArrayList<>();
-
-    @ElementCollection
-    private List<Integer> tdsIds = new ArrayList<>();
+    private int attachmentId;
 
 
 }

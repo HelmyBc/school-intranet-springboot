@@ -2,6 +2,7 @@ package com.example.enetcom_intranet.controller;
 
 import com.example.enetcom_intranet.ResponseData;
 import com.example.enetcom_intranet.model.Attachment;
+import com.example.enetcom_intranet.model.Classe;
 import com.example.enetcom_intranet.model.Department;
 import com.example.enetcom_intranet.model.Post;
 import com.example.enetcom_intranet.service.AttachmentService;
@@ -16,11 +17,18 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.util.List;
+
 @RestController
 public class AttachmentController {
     @Autowired
     private AttachmentService attachmentService;
 
+    @GetMapping("/api/attachment")
+    public ResponseEntity<List<Attachment>> getAllAttachments() {
+        List<Attachment> attachments = attachmentService.getAttachments();
+        return new ResponseEntity<>(attachments, HttpStatus.OK);
+    }
 
     @PostMapping("/api/upload")
     public ResponseEntity<Attachment> uploadFile(@RequestParam("file") MultipartFile file) throws Exception {

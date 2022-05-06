@@ -23,15 +23,5 @@ public class Post extends BaseEntity {
     private int imageId;
     private String imageUrl;
 
-//    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    @JoinColumn(name = "user_id")
-//    private User user;
-//
-//    @SuppressWarnings("unchecked")
-//    @JsonProperty("brand")
-//    private void unpackNested(Map<String, Object> user) {
-//        this.username = (String) user.get("name");
-//        this.uid = (int) user.get("id");
-//    }
 
 }

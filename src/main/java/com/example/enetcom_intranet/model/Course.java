@@ -13,19 +13,16 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Subject {
+public class Course extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     private String name;
 
+    private int subjectId;
 
-    @ElementCollection
-    private List<Integer> coursesIds = new ArrayList<>();
-
-    @ElementCollection
-    private List<Integer> tdsIds = new ArrayList<>();
+    private int attachmentId;
 
 
 }
