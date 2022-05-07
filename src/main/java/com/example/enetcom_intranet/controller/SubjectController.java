@@ -72,6 +72,7 @@ public class SubjectController {
     //The function receives a PUT request, updates the Student with the specified Id and returns the updated student
     @PutMapping({"/{id}"})
     public ResponseEntity<Subject> updateSubject(@PathVariable("id") Integer id, @RequestBody Subject subject) {
+
         subjectService.updateSubject(id, subject);
         return new ResponseEntity<>(subjectService.getSubjectById(id), HttpStatus.OK);
     }
