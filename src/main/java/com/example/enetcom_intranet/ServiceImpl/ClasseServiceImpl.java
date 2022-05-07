@@ -36,14 +36,14 @@ public class ClasseServiceImpl implements ClasseService {
 
     @Override
     public void updateClasse(Integer id, Classe classe) {
-        Classe postFromDb = classeRepository.findById(id).get();
-        postFromDb.setLevel(classe.getLevel());
-        postFromDb.setDepId(classe.getDepId());
-        postFromDb.setGroupe(classe.getGroupe());
-        postFromDb.setName(classe.getName());
-        postFromDb.setSubjectsId(classe.getSubjectsId());
-        System.out.println(postFromDb.toString());
-        classeRepository.save(postFromDb);
+        Classe classeFromDb = classeRepository.findById(id).get();
+        classeFromDb.setLevel(classe.getLevel());
+        classeFromDb.setDepId(classe.getDepId());
+        classeFromDb.setGroupe(classe.getGroupe());
+        classeFromDb.setName(classe.getName());
+        classeFromDb.setSubjectsId(classe.getSubjectsId());
+        System.out.println(classeFromDb.toString());
+        classeRepository.save(classeFromDb);
     }
 
     @Override
