@@ -49,6 +49,7 @@ public class SubjectServiceImpl implements SubjectService {
         subjectFromDb.setDepIds(subject.getDepIds());
 
 
+
         List<Classe> classes = classeService.getClasses();
 
         // we need to delete subject from previous classes
