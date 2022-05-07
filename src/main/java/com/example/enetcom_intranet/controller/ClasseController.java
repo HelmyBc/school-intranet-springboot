@@ -1,8 +1,10 @@
 package com.example.enetcom_intranet.controller;
 
 import com.example.enetcom_intranet.model.Classe;
+import com.example.enetcom_intranet.model.Subject;
 import com.example.enetcom_intranet.service.ClasseService;
 import com.example.enetcom_intranet.service.DepartmentService;
+import com.example.enetcom_intranet.service.SubjectService;
 import com.example.enetcom_intranet.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -22,6 +24,9 @@ public class ClasseController {
 
     @Autowired
     DepartmentService departmentService;
+
+    @Autowired
+    SubjectService subjectService;
 
 
     //The function receives a GET request, processes it and gives back a list of Student as a response.
@@ -45,6 +50,22 @@ public class ClasseController {
         httpHeaders.add("classe",
                 "/api/classe/" + classe1.getId());
         departmentService.addToDepartmentClassesList(classe.getDepId(), classe.getId());
+
+
+        //While creating a new Classe
+        //We need to add the subject to this classe having the same depId and level
+        List<Subject> subjects = subjectService.getSubjects();
+        for (int i = 0; i < subjects.size(); i++) {
+            Subject subjectI = subjects.get(i);
+            List<Integer> subjectDepIds=subjectI.getDepIds();
+            if (subjectDepIds.contains(classe.getDepId()) && classe.getLevel() == subjectI.getLevel()) {
+                List<Integer> subjectsIds = classe.getSubjectsId();
+                subjectsIds.add(subjectI.getId());
+                classe.setSubjectsId(subjectsIds);
+                classeService.updateClasse(classe.getId(), classe);
+            }
+        }
+
         return new ResponseEntity<>(classe1, HttpStatus.CREATED);
     }
 
