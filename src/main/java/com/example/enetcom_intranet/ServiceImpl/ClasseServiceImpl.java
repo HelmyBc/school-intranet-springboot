@@ -41,6 +41,7 @@ public class ClasseServiceImpl implements ClasseService {
         postFromDb.setDepId(classe.getDepId());
         postFromDb.setGroupe(classe.getGroupe());
         postFromDb.setName(classe.getName());
+        postFromDb.setSubjectsId(classe.getSubjectsId());
         System.out.println(postFromDb.toString());
         classeRepository.save(postFromDb);
     }
@@ -83,12 +84,12 @@ public class ClasseServiceImpl implements ClasseService {
 
     @Override
     public List<Integer> deleteFromClasseTeachersList(Integer tid, Integer cid) {
-            Classe classe = classeRepository.findById(cid).get();
-            List<Integer> oldList = classe.getTeachersId();
-            oldList.remove(tid);
-            classe.setTeachersId(oldList);
-            classeRepository.save(classe);
-            return oldList;
+        Classe classe = classeRepository.findById(cid).get();
+        List<Integer> oldList = classe.getTeachersId();
+        oldList.remove(tid);
+        classe.setTeachersId(oldList);
+        classeRepository.save(classe);
+        return oldList;
 
     }
 

@@ -61,6 +61,7 @@ public class TeacherController {
             Classe classe = classeService.getClasseById(teacherClasses.get(i));
             classeService.addToClasseTeachersList(teacher.getId(), classe.getId());
         }
+
         return new ResponseEntity<>(teacher1, HttpStatus.CREATED);
     }
 

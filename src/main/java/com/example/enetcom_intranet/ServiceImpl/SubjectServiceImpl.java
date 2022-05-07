@@ -29,18 +29,19 @@ public class SubjectServiceImpl implements SubjectService {
     }
 
     @Override
-    public Subject insert(Subject post) {
-        return subjectRepository.save(post);
+    public Subject insert(Subject subject) {
+        return subjectRepository.save(subject);
     }
 
     @Override
-    public void updateSubject(Integer id, Subject feature) {
+    public void updateSubject(Integer id, Subject subject) {
         Subject subjectFromDb = subjectRepository.findById(id).get();
-        System.out.println(subjectFromDb.toString());
-        subjectFromDb.setName(feature.getName());
-        subjectFromDb.setCoursesIds(feature.getCoursesIds());
-        subjectFromDb.setTdsIds(feature.getTdsIds());
-
+        System.out.println(subjectFromDb);
+        subjectFromDb.setName(subject.getName());
+        subjectFromDb.setCoursesIds(subject.getCoursesIds());
+        subjectFromDb.setTdsIds(subject.getTdsIds());
+        subjectFromDb.setLevel(subject.getLevel());
+        subjectFromDb.setDepIds(subject.getDepIds());
 
         subjectRepository.save(subjectFromDb);
     }

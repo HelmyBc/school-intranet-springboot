@@ -26,4 +26,10 @@ public class Teacher extends User {
     private List<Integer> classesId = new ArrayList<>();
 
 
+    @ElementCollection
+    private List<Integer> subjectsId = new ArrayList<>();
+
+
+
+
 }

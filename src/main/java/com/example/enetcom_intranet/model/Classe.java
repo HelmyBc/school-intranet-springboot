@@ -34,6 +34,12 @@ public class Classe {
     @ElementCollection
     private List<Integer> studentsId = new ArrayList<>();
 
+    //will be added automatically after creating the subject with depIds and level
+    //So I need to add depId attribute to subject
+    @ElementCollection
+    private List<Integer> subjectsId = new ArrayList<>();
+
+
 
 //    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 //    @JoinTable(name = "class_teachers",

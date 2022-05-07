@@ -11,9 +11,11 @@ public interface SubjectService {
 
     Subject getSubjectById(Integer id);
 
-    Subject insert(Subject f);
+    Subject insert(Subject s);
 
-    void updateSubject(Integer id, Subject f);
+    void updateSubject(Integer id, Subject s);
 
     void deleteSubject(Integer id);
+
+
 }

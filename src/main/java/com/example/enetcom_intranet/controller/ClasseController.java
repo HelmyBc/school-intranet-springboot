@@ -50,8 +50,8 @@ public class ClasseController {
 
     //The function receives a PUT request, updates the Student with the specified id and returns the updated student
     @PutMapping({"/{id}"})
-    public ResponseEntity<Classe> updateClasse(@PathVariable("id") Integer id, @RequestBody Classe post) {
-        classeService.updateClasse(id, post);
+    public ResponseEntity<Classe> updateClasse(@PathVariable("id") Integer id, @RequestBody Classe classe) {
+        classeService.updateClasse(id, classe);
         return new ResponseEntity<>(classeService.getClasseById(id), HttpStatus.OK);
     }
 
