@@ -3,6 +3,7 @@ package com.example.enetcom_intranet.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +15,7 @@ import java.util.List;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "user_type")
 
-public abstract class User {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,7 +33,19 @@ public abstract class User {
     @ElementCollection
     private List<Integer> postsId = new ArrayList<>();
 
-//    @OneToMany(cascade = CascadeType.ALL , fetch = FetchType.LAZY)
+    @Column(name = "user_type", insertable = false, updatable = false)
+    protected String userType;
+
+    public String getUserType() {
+        return userType;
+    }
+
+    public User(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
+
+    //    @OneToMany(cascade = CascadeType.ALL , fetch = FetchType.LAZY)
 //    @JoinColumn(name = "user_id")
 //    @OnDelete(action = OnDeleteAction.CASCADE)
 //    private List<Post> posts;

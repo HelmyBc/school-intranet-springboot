@@ -1,6 +1,8 @@
 package com.example.enetcom_intranet.controller;
 
+import com.example.enetcom_intranet.model.Classe;
 import com.example.enetcom_intranet.model.User;
+import com.example.enetcom_intranet.repository.UserRepository;
 import com.example.enetcom_intranet.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -16,6 +18,23 @@ import java.util.List;
 public class UserController {
     @Autowired
     UserService userService;
+
+    @Autowired
+    UserRepository userRepository;
+
+
+    @PostMapping("/login")
+    public ResponseEntity<User> Login(@RequestBody User user) {
+
+        List<User> users = userService.getUsers();
+        for (int i = 0; i < users.size(); i++) {
+            User userFromDb = users.get(i);
+            if (userFromDb.getEmail().equals(user.getEmail()) && userFromDb.getPassword().equals(user.getPassword())) {
+                return new ResponseEntity<>(userFromDb, HttpStatus.OK);
+            }
+        }
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
 
 
     //The function receives a GET request, processes it and gives back a list of Student as a response.
