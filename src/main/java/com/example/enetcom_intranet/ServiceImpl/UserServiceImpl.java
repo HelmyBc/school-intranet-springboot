@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
 
     public void updateUser(Integer id, User u) {
         User userFromDb = userRepository.findById(id).get();
-        System.out.println(userFromDb.toString());
+
         userFromDb.setCin(u.getCin());
         userFromDb.setFirstName(u.getFirstName());
         userFromDb.setLastName(u.getLastName());
@@ -44,6 +44,8 @@ public class UserServiceImpl implements UserService {
         userFromDb.setPhone(u.getPhone());
         userFromDb.setImageUrl(u.getImageUrl());
         userFromDb.setPostsId(u.getPostsId());
+
+        System.out.println(userFromDb);
         userRepository.save(userFromDb);
     }
 

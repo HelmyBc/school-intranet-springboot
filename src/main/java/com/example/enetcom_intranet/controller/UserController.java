@@ -95,9 +95,14 @@ public class UserController {
         return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
     }
 
+    @GetMapping({"/{id}/posts"})
+    public ResponseEntity<List<Integer>> getUserPosts(@PathVariable Integer id) {
+        return new ResponseEntity<>(userService.getUserById(id).getPostsId(), HttpStatus.OK);
+    }
+
     //The function receives a POST request, processes it, creates a new Student and saves it to the database, and returns a resource link to the created student.
     @PostMapping
-    public ResponseEntity<User> saveTeacher(@RequestBody User user) {
+    public ResponseEntity<User> saveUser(@RequestBody User user) {
         User user1 = userService.insert(user);
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("user",
@@ -107,8 +112,8 @@ public class UserController {
 
     //The function receives a PUT request, updates the Student with the specified Id and returns the updated student
     @PutMapping({"/{id}"})
-    public ResponseEntity<User> updateTeacher(@PathVariable("id") Integer id, @RequestBody User teacher) {
-        userService.updateUser(id, teacher);
+    public ResponseEntity<User> updateUser(@PathVariable("id") Integer id, @RequestBody User user) {
+        userService.updateUser(id, user);
         return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
     }
 

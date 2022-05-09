@@ -41,7 +41,7 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public void updateTeacher(Integer id, Teacher t) {
         Teacher teacherFromDb = teacherRepository.findById(id).get();
-        System.out.println(teacherFromDb.toString());
+
         teacherFromDb.setCin(t.getCin());
         teacherFromDb.setFirstName(t.getFirstName());
         teacherFromDb.setLastName(t.getLastName());
@@ -50,9 +50,10 @@ public class TeacherServiceImpl implements TeacherService {
         teacherFromDb.setPhone(t.getPhone());
         teacherFromDb.setDepId(t.getDepId());
         teacherFromDb.setChefDep(t.isChefDep());
-
+        teacherFromDb.setSubjectsId(t.getSubjectsId());
         teacherFromDb.setClassesId(t.getClassesId());
         teacherFromDb.setImageUrl(t.getImageUrl());
+        System.out.println(teacherFromDb);
         teacherRepository.save(teacherFromDb);
     }
 

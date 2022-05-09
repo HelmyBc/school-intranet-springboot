@@ -45,6 +45,11 @@ public class TeacherController {
         return new ResponseEntity<>(teacherService.getTeacherById(id).getPostsId(), HttpStatus.OK);
     }
 
+    @GetMapping({"/{id}/subjects"})
+    public ResponseEntity<List<Integer>> getTeacherSubjects(@PathVariable Integer id) {
+        return new ResponseEntity<>(teacherService.getTeacherById(id).getSubjectsId(), HttpStatus.OK);
+    }
+
     //The function receives a POST request, processes it, creates a new Student and saves it to the database, and returns a resource link to the created student.
     @PostMapping
     public ResponseEntity<Teacher> saveTeacher(@RequestBody Teacher teacher) {
@@ -71,6 +76,8 @@ public class TeacherController {
         teacherService.updateTeacher(id, teacher);
         return new ResponseEntity<>(teacherService.getTeacherById(id), HttpStatus.OK);
     }
+
+
 
     //The function receives a DELETE request, deletes the Student with the specified Id.
     @DeleteMapping({"/{id}"})
