@@ -1,16 +1,17 @@
 package com.example.enetcom_intranet.controller;
 
-import com.example.enetcom_intranet.model.Classe;
-import com.example.enetcom_intranet.model.User;
+import com.example.enetcom_intranet.model.*;
 import com.example.enetcom_intranet.repository.UserRepository;
-import com.example.enetcom_intranet.service.UserService;
+import com.example.enetcom_intranet.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 
 @RestController
@@ -18,6 +19,18 @@ import java.util.List;
 public class UserController {
     @Autowired
     UserService userService;
+
+    @Autowired
+    ClasseService classeService;
+
+    @Autowired
+    SubjectService subjectService;
+
+    @Autowired
+    StudentService studentService;
+
+    @Autowired
+    TeacherService teacherService;
 
     @Autowired
     UserRepository userRepository;
@@ -42,6 +55,38 @@ public class UserController {
     public ResponseEntity<List<User>> getAllUsers() {
         List<User> users = userService.getUsers();
         return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+
+    @GetMapping("/subjects/{id}")
+    public ResponseEntity<List<Subject>> getAllSubjects(@PathVariable Integer id) {
+        User user = userService.getUserById(id);
+        List<Subject> allSubjects = subjectService.getSubjects();
+        List<Subject> subjects = new java.util.ArrayList<>(Collections.emptyList());
+        if (Objects.equals(user.getUserType(), "Student")) {
+            Student student = studentService.getStudentById(id);
+            Classe classe = classeService.getClasseById(student.getClasseId());
+            List<Integer> subjectsIds = classe.getSubjectsId();
+
+
+            for (int i = 0; i < allSubjects.size(); i++) {
+                if (subjectsIds.contains(allSubjects.get(i).getId())) {
+                    subjects.add(allSubjects.get(i));
+                }
+            }
+            return new ResponseEntity<>(subjects, HttpStatus.OK);
+        } else if (Objects.equals(user.getUserType(), "Teacher")) {
+            List<Integer> subjectsIds = teacherService.getTeacherById(id).getSubjectsId();
+
+            for (int i = 0; i < allSubjects.size(); i++) {
+                if (subjectsIds.contains(allSubjects.get(i).getId())) {
+                    subjects.add(allSubjects.get(i));
+                }
+            }
+            return new ResponseEntity<>(Collections.emptyList(), HttpStatus.OK);
+
+        }
+
+        return null;
     }
 
     //The function receives a GET request, processes it, and gives back a list of student as a response.
