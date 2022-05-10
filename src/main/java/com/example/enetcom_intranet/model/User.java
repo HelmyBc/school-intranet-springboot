@@ -32,6 +32,9 @@ public class User {
     @ElementCollection
     private List<Integer> postsId = new ArrayList<>();
 
+    @ElementCollection
+    private List<Integer> subjectsId = new ArrayList<>();
+
     @Column(name = "user_type", insertable = false, updatable = false)
     protected String userType;
 

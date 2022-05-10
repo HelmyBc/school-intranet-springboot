@@ -1,14 +1,12 @@
 package com.example.enetcom_intranet.controller;
 
 
-import com.example.enetcom_intranet.model.Classe;
-import com.example.enetcom_intranet.model.Department;
-import com.example.enetcom_intranet.model.Feature;
-import com.example.enetcom_intranet.model.Subject;
+import com.example.enetcom_intranet.model.*;
 import com.example.enetcom_intranet.repository.ClasseRepository;
 import com.example.enetcom_intranet.service.ClasseService;
 import com.example.enetcom_intranet.service.FeatureService;
 import com.example.enetcom_intranet.service.SubjectService;
+import com.example.enetcom_intranet.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -25,6 +23,9 @@ public class SubjectController {
 
     @Autowired
     ClasseService classeService;
+
+    @Autowired
+    TeacherService teacherService;
 
 
     //The function receives a GET request, processes it and gives back a list of Student as a response.
@@ -73,14 +74,22 @@ public class SubjectController {
     @PostMapping
     public ResponseEntity<Subject> saveSubject(@RequestBody Subject subject) {
         Subject subject1 = subjectService.insert(subject);
+
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("subject",
                 "/api/subject/" + subject1.getId());
+        // CLASS UPDATE
         Classe classe = classeService.getClasseById(subject.getClasseId());
         List<Integer> classeSubjects = classe.getSubjectsId();
         classeSubjects.add(subject.getId());
         classe.setSubjectsId(classeSubjects);
         classeService.updateClasse(classe.getId(), classe);
+        //TEACHER UPDATE
+        Teacher teacher=teacherService.getTeacherById(subject.getTeacherId());
+        List<Integer> teacherSubjects = teacher.getSubjectsId();
+        teacherSubjects.add(subject.getId());
+        teacher.setSubjectsId(teacherSubjects);
+        teacherService.updateTeacher(teacher.getId(), teacher);
 
 
         return new ResponseEntity<>(subject1, HttpStatus.CREATED);

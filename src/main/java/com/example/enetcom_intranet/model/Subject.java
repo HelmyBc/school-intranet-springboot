@@ -29,6 +29,7 @@ public class Subject {
     private String name;
     private String teacherName;
     private int classeId;
+    private int teacherId;
 
     @ElementCollection
     private List<Integer> coursesIds = new ArrayList<>();

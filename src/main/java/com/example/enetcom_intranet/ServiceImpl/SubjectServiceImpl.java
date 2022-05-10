@@ -41,13 +41,13 @@ public class SubjectServiceImpl implements SubjectService {
     @Override
     public void updateSubject(Integer id, Subject subject) {
         Subject subjectFromDb = subjectRepository.findById(id).get();
-       // Classe classe=classeService.getClasseById(subject.getClasseId());
+        // Classe classe=classeService.getClasseById(subject.getClasseId());
         subjectFromDb.setName(subject.getName());
         subjectFromDb.setTeacherName(subject.getTeacherName());
+        subjectFromDb.setTeacherId(subject.getTeacherId());
         subjectFromDb.setCoursesIds(subject.getCoursesIds());
         subjectFromDb.setTdsIds(subject.getTdsIds());
         subjectFromDb.setClasseId(subject.getClasseId());
-
 
 
 //        List<Classe> classes = classeService.getClasses();
@@ -61,8 +61,6 @@ public class SubjectServiceImpl implements SubjectService {
 //                classeI.setSubjectsId(classeISubjects);
 //            }
 //        }
-
-
         //While updating a subject having a depId and level
         //We need to add the subject to every classe having the same depId and level
 

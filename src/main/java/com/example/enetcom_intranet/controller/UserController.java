@@ -87,22 +87,24 @@ public class UserController {
     @GetMapping("/{id}/classes/{id1}/subjects")
     public ResponseEntity<List<Subject>> getAllClasseSubjects(@PathVariable Integer id, @PathVariable Integer id1) {
         User user = userService.getUserById(id);
-        Classe classe = classeService.getClasseById(id1);
-        List<Subject> subjects = new java.util.ArrayList<>(Collections.emptyList());
-        List<Integer> classSubjectsIds = classe.getSubjectsId();
+        //Classe classe = classeService.getClasseById(id1);
+        List<Subject> userClasseSubjects = new java.util.ArrayList<>(Collections.emptyList());
 
+//
         if (Objects.equals(user.getUserType(), "Teacher")) {
-            Teacher teacher=teacherService.getTeacherById(id);
-            List<Integer> teacherSubjects=teacher.getSubjectsId();
-            for (int i = 0; i < classSubjectsIds.size(); i++) {
-                if (teacherSubjects.contains(classSubjectsIds.get(i))) {
-                    Subject subject=subjectService.getSubjectById(classSubjectsIds.get(i));
-                    subjects.add(subject);
+            Teacher teacher = teacherService.getTeacherById(id);
+            List<Integer> teacherSubjects = teacher.getSubjectsId();
+            for (int i = 0; i < teacherSubjects.size(); i++) {
+                Subject subjectI = subjectService.getSubjectById(teacherSubjects.get(i));
+                if (Objects.equals(subjectI.getTeacherId(), id)) {
+
+                    userClasseSubjects.add(subjectI);
                 }
             }
-            return new ResponseEntity<>(subjects, HttpStatus.OK);
+            return new ResponseEntity<>(userClasseSubjects, HttpStatus.OK);
 
         }
+
 
         return null;
     }
