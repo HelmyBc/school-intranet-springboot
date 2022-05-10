@@ -79,9 +79,7 @@ public class UserController {
                 }
             }
             return new ResponseEntity<>(classes, HttpStatus.OK);
-
         }
-
         return null;
     }
 
