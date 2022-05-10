@@ -45,6 +45,12 @@ public class TeacherController {
         return new ResponseEntity<>(teacherService.getTeacherById(id).getPostsId(), HttpStatus.OK);
     }
 
+    @GetMapping({"/{id}/classes"})
+    public ResponseEntity<List<Integer>> getTeacherClasses(@PathVariable Integer id) {
+        return new ResponseEntity<>(teacherService.getTeacherById(id).getClassesId(), HttpStatus.OK);
+    }
+
+
     @GetMapping({"/{id}/subjects"})
     public ResponseEntity<List<Integer>> getTeacherSubjects(@PathVariable Integer id) {
         return new ResponseEntity<>(teacherService.getTeacherById(id).getSubjectsId(), HttpStatus.OK);
