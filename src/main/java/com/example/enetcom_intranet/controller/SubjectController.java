@@ -76,11 +76,11 @@ public class SubjectController {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("subject",
                 "/api/subject/" + subject1.getId());
-        Classe classe=classeService.getClasseById(subject.getClasseId());
-        List<Integer> classeSubjects= classe.getSubjectsId();
+        Classe classe = classeService.getClasseById(subject.getClasseId());
+        List<Integer> classeSubjects = classe.getSubjectsId();
         classeSubjects.add(subject.getId());
         classe.setSubjectsId(classeSubjects);
-        classeService.updateClasse(classe.getId(),classe);
+        classeService.updateClasse(classe.getId(), classe);
 
 
         return new ResponseEntity<>(subject1, HttpStatus.CREATED);
@@ -97,15 +97,21 @@ public class SubjectController {
     //The function receives a DELETE request, deletes the Student with the specified Id.
     @DeleteMapping({"/{id}"})
     public ResponseEntity<Subject> deleteSubject(@PathVariable("id") Integer id) {
-        List<Classe> classes = classeService.getClasses();
-        for (int i = 0; i < classes.size(); i++) {
-            Classe classeI = classes.get(i);
-            List<Integer> classeISubjects = classeI.getSubjectsId();
-            if (classeISubjects.contains(id)) {
-                classeISubjects.remove(id);
-                classeI.setSubjectsId(classeISubjects);
-            }
-        }
+//        List<Classe> classes = classeService.getClasses();
+//        for (int i = 0; i < classes.size(); i++) {
+//            Classe classeI = classes.get(i);
+//            List<Integer> classeISubjects = classeI.getSubjectsId();
+//            if (classeISubjects.contains(id)) {
+//                classeISubjects.remove(id);
+//                classeI.setSubjectsId(classeISubjects);
+//            }
+//        }
+        Subject subject = subjectService.getSubjectById(id);
+        Classe classe = classeService.getClasseById(subject.getClasseId());
+        List<Integer> classeSubjects = classe.getSubjectsId();
+        classeSubjects.remove(id);
+        classe.setSubjectsId(classeSubjects);
+        classeService.updateClasse(classe.getId(), classe);
         subjectService.deleteSubject(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
