@@ -41,11 +41,11 @@ public class SubjectServiceImpl implements SubjectService {
     @Override
     public void updateSubject(Integer id, Subject subject) {
         Subject subjectFromDb = subjectRepository.findById(id).get();
-        Classe classe=classeService.getClasseById(subject.getClasseId());
+       // Classe classe=classeService.getClasseById(subject.getClasseId());
         subjectFromDb.setName(subject.getName());
+        subjectFromDb.setTeacherName(subject.getTeacherName());
         subjectFromDb.setCoursesIds(subject.getCoursesIds());
         subjectFromDb.setTdsIds(subject.getTdsIds());
-        //subjectFromDb.setLevel(classe.getLevel());
         subjectFromDb.setClasseId(subject.getClasseId());
 
 

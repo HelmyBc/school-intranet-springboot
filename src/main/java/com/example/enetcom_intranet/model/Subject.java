@@ -27,6 +27,7 @@ public class Subject {
 //    private List<Integer> depIds = new ArrayList<>();
 
     private String name;
+    private String teacherName;
     private int classeId;
 
     @ElementCollection
