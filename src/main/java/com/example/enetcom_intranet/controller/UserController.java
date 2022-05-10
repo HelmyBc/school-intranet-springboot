@@ -85,6 +85,29 @@ public class UserController {
         return null;
     }
 
+    //DONE BUT NOT ADDED YET TO FLUTTER
+    @GetMapping("/{id}/classes/{id1}/subjects")
+    public ResponseEntity<List<Subject>> getAllClasseSubjects(@PathVariable Integer id, @PathVariable Integer id1) {
+        User user = userService.getUserById(id);
+        Classe classe = classeService.getClasseById(id1);
+        List<Subject> subjects = new java.util.ArrayList<>(Collections.emptyList());
+        List<Integer> classSubjectsIds = classe.getSubjectsId();
+
+        if (Objects.equals(user.getUserType(), "Teacher")) {
+            Teacher teacher=teacherService.getTeacherById(id);
+            List<Integer> teacherSubjects=teacher.getSubjectsId();
+            for (int i = 0; i < classSubjectsIds.size(); i++) {
+                if (teacherSubjects.contains(classSubjectsIds.get(i))) {
+                    Subject subject=subjectService.getSubjectById(classSubjectsIds.get(i));
+                    subjects.add(subject);
+                }
+            }
+            return new ResponseEntity<>(subjects, HttpStatus.OK);
+
+        }
+
+        return null;
+    }
 
     @GetMapping("/{id}/subjects")
     public ResponseEntity<List<Subject>> getAllSubjects(@PathVariable Integer id) {
