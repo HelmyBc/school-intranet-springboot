@@ -41,41 +41,41 @@ public class SubjectServiceImpl implements SubjectService {
     @Override
     public void updateSubject(Integer id, Subject subject) {
         Subject subjectFromDb = subjectRepository.findById(id).get();
-
+        Classe classe=classeService.getClasseById(subject.getClasseId());
         subjectFromDb.setName(subject.getName());
         subjectFromDb.setCoursesIds(subject.getCoursesIds());
         subjectFromDb.setTdsIds(subject.getTdsIds());
-        subjectFromDb.setLevel(subject.getLevel());
-        subjectFromDb.setDepIds(subject.getDepIds());
+        //subjectFromDb.setLevel(classe.getLevel());
+        subjectFromDb.setClasseId(subject.getClasseId());
 
 
 
-        List<Classe> classes = classeService.getClasses();
-
-        // we need to delete subject from previous classes
-        for (int i = 0; i < classes.size(); i++) {
-            Classe classeI = classes.get(i);
-            List<Integer> classeISubjects = classeI.getSubjectsId();
-            if (classeISubjects.contains(id)) {
-                classeISubjects.remove(id);
-                classeI.setSubjectsId(classeISubjects);
-            }
-        }
+//        List<Classe> classes = classeService.getClasses();
+//
+//        // we need to delete subject from previous classes
+//        for (int i = 0; i < classes.size(); i++) {
+//            Classe classeI = classes.get(i);
+//            List<Integer> classeISubjects = classeI.getSubjectsId();
+//            if (classeISubjects.contains(id)) {
+//                classeISubjects.remove(id);
+//                classeI.setSubjectsId(classeISubjects);
+//            }
+//        }
 
 
         //While updating a subject having a depId and level
         //We need to add the subject to every classe having the same depId and level
 
-        List<Integer> subjectDepIds = subject.getDepIds();
-        for (int i = 0; i < classes.size(); i++) {
-            Classe classeI = classes.get(i);
-            if (subjectDepIds.contains(classeI.getDepId()) && classeI.getLevel() == subject.getLevel()) {
-                List<Integer> subjectsIds = classeI.getSubjectsId();
-                subjectsIds.add(id);
-                classeI.setSubjectsId(subjectsIds);
-                classeService.updateClasse(classeI.getId(), classeI);
-            }
-        }
+//        List<Integer> subjectDepIds = subject.getDepIds();
+//        for (int i = 0; i < classes.size(); i++) {
+//            Classe classeI = classes.get(i);
+//            if (subjectDepIds.contains(classeI.getDepId()) && classeI.getLevel() == subject.getLevel()) {
+//                List<Integer> subjectsIds = classeI.getSubjectsId();
+//                subjectsIds.add(id);
+//                classeI.setSubjectsId(subjectsIds);
+//                classeService.updateClasse(classeI.getId(), classeI);
+//            }
+//        }
 
         System.out.println(subjectFromDb);
         subjectRepository.save(subjectFromDb);

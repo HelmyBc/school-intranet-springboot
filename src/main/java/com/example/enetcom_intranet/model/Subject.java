@@ -18,15 +18,16 @@ public class Subject {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private int level=0;
+    //private int level=0;
 
 
     //I need to add depId attribute to subject
     //So the subject will be added automatically to classes having the same depId and level
-    @ElementCollection
-    private List<Integer> depIds = new ArrayList<>();
+//    @ElementCollection
+//    private List<Integer> depIds = new ArrayList<>();
 
     private String name;
+    private int classeId;
 
     @ElementCollection
     private List<Integer> coursesIds = new ArrayList<>();

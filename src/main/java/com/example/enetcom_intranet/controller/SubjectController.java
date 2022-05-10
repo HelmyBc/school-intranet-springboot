@@ -2,6 +2,7 @@ package com.example.enetcom_intranet.controller;
 
 
 import com.example.enetcom_intranet.model.Classe;
+import com.example.enetcom_intranet.model.Department;
 import com.example.enetcom_intranet.model.Feature;
 import com.example.enetcom_intranet.model.Subject;
 import com.example.enetcom_intranet.repository.ClasseRepository;
@@ -43,27 +44,43 @@ public class SubjectController {
     // and returns a resource link to the created student.
 
     //I need to add this subject to every class having the same dep and level
+//    @PostMapping
+//    public ResponseEntity<Subject> saveSubject(@RequestBody Subject subject) {
+//        Subject subject1 = subjectService.insert(subject);
+//        HttpHeaders httpHeaders = new HttpHeaders();
+//        httpHeaders.add("subject",
+//                "/api/subject/" + subject1.getId());
+//
+//
+//        //While creating a subject having a depId and level
+//        //We need to add the subject to every classe having the same depId and level
+//        List<Classe> classes = classeService.getClasses();
+//        List<Integer> subjectDepIds = subject.getDepIds();
+//        for (int i = 0; i < classes.size(); i++) {
+//            Classe classeI = classes.get(i);
+//            if (subjectDepIds.contains(classeI.getDepId()) && classeI.getLevel() == subject.getLevel()) {
+//                List<Integer> subjectsIds = classeI.getSubjectsId();
+//                subjectsIds.add(subject.getId());
+//                classeI.setSubjectsId(subjectsIds);
+//                classeService.updateClasse(classeI.getId(), classeI);
+//            }
+//        }
+//
+//
+//        return new ResponseEntity<>(subject1, HttpStatus.CREATED);
+//    }
+
     @PostMapping
     public ResponseEntity<Subject> saveSubject(@RequestBody Subject subject) {
         Subject subject1 = subjectService.insert(subject);
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("subject",
                 "/api/subject/" + subject1.getId());
-
-
-        //While creating a subject having a depId and level
-        //We need to add the subject to every classe having the same depId and level
-        List<Classe> classes = classeService.getClasses();
-        List<Integer> subjectDepIds = subject.getDepIds();
-        for (int i = 0; i < classes.size(); i++) {
-            Classe classeI = classes.get(i);
-            if (subjectDepIds.contains(classeI.getDepId()) && classeI.getLevel() == subject.getLevel()) {
-                List<Integer> subjectsIds = classeI.getSubjectsId();
-                subjectsIds.add(subject.getId());
-                classeI.setSubjectsId(subjectsIds);
-                classeService.updateClasse(classeI.getId(), classeI);
-            }
-        }
+        Classe classe=classeService.getClasseById(subject.getClasseId());
+        List<Integer> classeSubjects= classe.getSubjectsId();
+        classeSubjects.add(subject.getId());
+        classe.setSubjectsId(classeSubjects);
+        classeService.updateClasse(classe.getId(),classe);
 
 
         return new ResponseEntity<>(subject1, HttpStatus.CREATED);

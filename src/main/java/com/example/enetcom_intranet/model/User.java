@@ -3,7 +3,6 @@ package com.example.enetcom_intranet.model;
 import lombok.*;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,9 +44,6 @@ public class User {
         this.password = password;
     }
 
-    //    @OneToMany(cascade = CascadeType.ALL , fetch = FetchType.LAZY)
-//    @JoinColumn(name = "user_id")
-//    @OnDelete(action = OnDeleteAction.CASCADE)
-//    private List<Post> posts;
+
 
 }

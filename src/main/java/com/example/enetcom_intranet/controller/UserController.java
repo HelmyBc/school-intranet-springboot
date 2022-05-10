@@ -83,7 +83,7 @@ public class UserController {
         return null;
     }
 
-    //DONE BUT NOT ADDED YET TO FLUTTER
+
     @GetMapping("/{id}/classes/{id1}/subjects")
     public ResponseEntity<List<Subject>> getAllClasseSubjects(@PathVariable Integer id, @PathVariable Integer id1) {
         User user = userService.getUserById(id);

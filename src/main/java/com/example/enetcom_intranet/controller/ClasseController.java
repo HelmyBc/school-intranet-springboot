@@ -54,17 +54,17 @@ public class ClasseController {
 
         //While creating a new Classe
         //We need to add the subject to this classe having the same depId and level
-        List<Subject> subjects = subjectService.getSubjects();
-        for (int i = 0; i < subjects.size(); i++) {
-            Subject subjectI = subjects.get(i);
-            List<Integer> subjectDepIds=subjectI.getDepIds();
-            if (subjectDepIds.contains(classe.getDepId()) && classe.getLevel() == subjectI.getLevel()) {
-                List<Integer> subjectsIds = classe.getSubjectsId();
-                subjectsIds.add(subjectI.getId());
-                classe.setSubjectsId(subjectsIds);
-                classeService.updateClasse(classe.getId(), classe);
-            }
-        }
+        //List<Subject> subjects = subjectService.getSubjects();
+//        for (int i = 0; i < subjects.size(); i++) {
+//            Subject subjectI = subjects.get(i);
+//            List<Integer> subjectDepIds=subjectI.getDepIds();
+//            if (subjectDepIds.contains(classe.getDepId()) && classe.getLevel() == subjectI.getLevel()) {
+//                List<Integer> subjectsIds = classe.getSubjectsId();
+//                subjectsIds.add(subjectI.getId());
+//                classe.setSubjectsId(subjectsIds);
+//                classeService.updateClasse(classe.getId(), classe);
+//            }
+//        }
 
         return new ResponseEntity<>(classe1, HttpStatus.CREATED);
     }
@@ -79,7 +79,7 @@ public class ClasseController {
     //The function receives a DELETE request, deletes the Student with the specified id.
     @DeleteMapping({"/{id}"})
     public ResponseEntity<Classe> deleteClasse(@PathVariable("id") Integer id) {
-        departmentService.deleteFromDepartmentClassesList(classeService.getClasseById(id).getDepId(),id);
+        departmentService.deleteFromDepartmentClassesList(classeService.getClasseById(id).getDepId(), id);
         classeService.deleteClasse(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
