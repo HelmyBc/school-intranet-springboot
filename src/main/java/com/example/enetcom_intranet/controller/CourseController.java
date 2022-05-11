@@ -46,11 +46,6 @@ public class CourseController {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("course",
                 "/api/course/" + course1.getId());
-        Subject subject = subjectService.getSubjectById(course.getSubjectId());
-        List<Integer> subjectCourses = subject.getCoursesIds();
-        subjectCourses.add(course.getId());
-        subject.setCoursesIds(subjectCourses);
-        subjectService.updateSubject(subject.getId(), subject);
         courseService.addToCoursesList(course.getSubjectId(), course.getId());
         return new ResponseEntity<>(course1, HttpStatus.CREATED);
     }

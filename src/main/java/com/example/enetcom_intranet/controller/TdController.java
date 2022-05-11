@@ -1,7 +1,9 @@
 package com.example.enetcom_intranet.controller;
 
 import com.example.enetcom_intranet.model.Course;
+import com.example.enetcom_intranet.model.Subject;
 import com.example.enetcom_intranet.model.Td;
+import com.example.enetcom_intranet.service.SubjectService;
 import com.example.enetcom_intranet.service.TdService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -39,6 +41,7 @@ public class TdController {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("course",
                 "/api/course/" + td1.getId());
+
         tdService.addToTdsList(td.getSubjectId(), td.getId());
         return new ResponseEntity<>(td1, HttpStatus.CREATED);
     }
