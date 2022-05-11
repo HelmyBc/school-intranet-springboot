@@ -29,6 +29,9 @@ public class SubjectController {
     @Autowired
     CourseService courseService;
 
+    @Autowired
+    TdService tdService;
+
     //The function receives a GET request, processes it and gives back a list of Student as a response.
     @GetMapping
     public ResponseEntity<List<Subject>> getAllSubjects() {
@@ -128,6 +131,20 @@ public class SubjectController {
             }
         }
         return new ResponseEntity<>(courses, HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}/tds")
+    public ResponseEntity<List<Td>> getAllSubjectTds(@PathVariable Integer id) {
+        Subject subject = subjectService.getSubjectById(id);
+        List<Td> allTds = tdService.getTds();
+        List<Td> tds = new java.util.ArrayList<>(Collections.emptyList());
+        List<Integer> tdIds = subject.getTdsIds();
+        for (int i = 0; i < allTds.size(); i++) {
+            if (tdIds.contains(allTds.get(i).getId())) {
+                tds.add(allTds.get(i));
+            }
+        }
+        return new ResponseEntity<>(tds, HttpStatus.OK);
     }
 
     //The function receives a DELETE request, deletes the Student with the specified Id.
