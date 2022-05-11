@@ -3,17 +3,16 @@ package com.example.enetcom_intranet.controller;
 
 import com.example.enetcom_intranet.model.*;
 import com.example.enetcom_intranet.repository.ClasseRepository;
-import com.example.enetcom_intranet.service.ClasseService;
-import com.example.enetcom_intranet.service.FeatureService;
-import com.example.enetcom_intranet.service.SubjectService;
-import com.example.enetcom_intranet.service.TeacherService;
+import com.example.enetcom_intranet.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/api/subject")
@@ -27,6 +26,8 @@ public class SubjectController {
     @Autowired
     TeacherService teacherService;
 
+    @Autowired
+    CourseService courseService;
 
     //The function receives a GET request, processes it and gives back a list of Student as a response.
     @GetMapping
@@ -85,7 +86,7 @@ public class SubjectController {
         classe.setSubjectsId(classeSubjects);
         classeService.updateClasse(classe.getId(), classe);
         //TEACHER UPDATE
-        Teacher teacher=teacherService.getTeacherById(subject.getTeacherId());
+        Teacher teacher = teacherService.getTeacherById(subject.getTeacherId());
         List<Integer> teacherSubjects = teacher.getSubjectsId();
         teacherSubjects.add(subject.getId());
         teacher.setSubjectsId(teacherSubjects);
@@ -113,6 +114,20 @@ public class SubjectController {
 
         subjectService.updateSubject(id, subject);
         return new ResponseEntity<>(subjectService.getSubjectById(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}/courses")
+    public ResponseEntity<List<Course>> getAllSubjectCourses(@PathVariable Integer id) {
+        Subject subject = subjectService.getSubjectById(id);
+        List<Course> allCourses = courseService.getCourses();
+        List<Course> courses = new java.util.ArrayList<>(Collections.emptyList());
+        List<Integer> coursesIds = subject.getCoursesIds();
+        for (int i = 0; i < allCourses.size(); i++) {
+            if (coursesIds.contains(allCourses.get(i).getId())) {
+                courses.add(allCourses.get(i));
+            }
+        }
+        return new ResponseEntity<>(courses, HttpStatus.OK);
     }
 
     //The function receives a DELETE request, deletes the Student with the specified Id.
