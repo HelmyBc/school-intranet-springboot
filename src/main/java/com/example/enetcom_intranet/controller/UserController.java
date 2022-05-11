@@ -1,5 +1,6 @@
 package com.example.enetcom_intranet.controller;
 
+import com.example.enetcom_intranet.ResponseData;
 import com.example.enetcom_intranet.model.*;
 import com.example.enetcom_intranet.repository.UserRepository;
 import com.example.enetcom_intranet.service.*;
@@ -87,26 +88,21 @@ public class UserController {
     @GetMapping("/{id}/classes/{id1}/subjects")
     public ResponseEntity<List<Subject>> getAllClasseSubjects(@PathVariable Integer id, @PathVariable Integer id1) {
         User user = userService.getUserById(id);
-        //Classe classe = classeService.getClasseById(id1);
-        List<Subject> userClasseSubjects = new java.util.ArrayList<>(Collections.emptyList());
-
+        List<Subject> newTeacherClasseSubjects = new java.util.ArrayList<>(Collections.emptyList());
 //
-        if (Objects.equals(user.getUserType(), "Teacher")) {
-            Teacher teacher = teacherService.getTeacherById(id);
-            List<Integer> teacherSubjects = teacher.getSubjectsId();
-            for (int i = 0; i < teacherSubjects.size(); i++) {
-                Subject subjectI = subjectService.getSubjectById(teacherSubjects.get(i));
-                if (Objects.equals(subjectI.getTeacherId(), id)) {
+        //if (Objects.equals(user.getUserType(), "Teacher")) {
+        Teacher teacher = teacherService.getTeacherById(id);
+        List<Integer> teacherSubjects = teacher.getSubjectsId();
 
-                    userClasseSubjects.add(subjectI);
-                }
+        for (int i = 0; i < teacherSubjects.size(); i++) {
+            Subject subjectI = subjectService.getSubjectById(teacherSubjects.get(i));
+            if (Objects.equals(subjectI.getClasseId(), id1)) {
+                newTeacherClasseSubjects.add(subjectI);
             }
-            return new ResponseEntity<>(userClasseSubjects, HttpStatus.OK);
-
         }
-
-
-        return null;
+        return new ResponseEntity<>(newTeacherClasseSubjects, HttpStatus.OK);
+//        }
+//        return null;
     }
 
     @GetMapping("/{id}/subjects")
