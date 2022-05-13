@@ -42,7 +42,7 @@ public class PostServiceImpl implements PostService {
     @Override
     public void updatePost(Integer id, Post post) {
         Post postFromDb = postRepository.findById(id).get();
-        System.out.println(postFromDb.toString());
+        System.out.println(postFromDb);
         postFromDb.setDescription(post.getDescription());
         postRepository.save(postFromDb);
     }
@@ -59,6 +59,7 @@ public class PostServiceImpl implements PostService {
         oldList.add(pid);
         userFromDb.setPostsId(oldList);
         userRepository.save(userFromDb);
+
         return oldList;
     }
 

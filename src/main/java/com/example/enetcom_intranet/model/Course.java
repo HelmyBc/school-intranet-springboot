@@ -24,5 +24,7 @@ public class Course extends BaseEntity {
 
     private int attachmentId;
 
+    private String pdfUrl;
+
 
 }

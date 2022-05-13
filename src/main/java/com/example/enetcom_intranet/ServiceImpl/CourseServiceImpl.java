@@ -6,6 +6,7 @@ import com.example.enetcom_intranet.model.User;
 import com.example.enetcom_intranet.repository.CourseRepository;
 import com.example.enetcom_intranet.repository.SubjectRepository;
 import com.example.enetcom_intranet.service.CourseService;
+import com.example.enetcom_intranet.service.SubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,9 @@ public class CourseServiceImpl implements CourseService {
 
     @Autowired
     SubjectRepository subjectRepository;
+
+    @Autowired
+    SubjectService subjectService;
 
 
     @Override
@@ -44,6 +48,7 @@ public class CourseServiceImpl implements CourseService {
         System.out.println(courseFromDb);
         courseFromDb.setName(feature.getName());
         courseFromDb.setAttachmentId(feature.getAttachmentId());
+        courseFromDb.setPdfUrl(feature.getPdfUrl());
         courseFromDb.setSubjectId(feature.getSubjectId());
         courseRepository.save(courseFromDb);
     }
@@ -59,7 +64,7 @@ public class CourseServiceImpl implements CourseService {
         List<Integer> oldList = subjectFromDb.getCoursesIds();
         oldList.add(cid);
         subjectFromDb.setCoursesIds(oldList);
-        subjectRepository.save(subjectFromDb);
+        subjectService.updateSubject(sid,subjectFromDb);
         return oldList;
     }
 
@@ -69,7 +74,7 @@ public class CourseServiceImpl implements CourseService {
         List<Integer> oldList = subjectFromDb.getCoursesIds();
         oldList.remove(cid);
         subjectFromDb.setCoursesIds(oldList);
-        subjectRepository.save(subjectFromDb);
+        subjectService.updateSubject(sid,subjectFromDb);
         return oldList;
 
     }

@@ -2,6 +2,7 @@ package com.example.enetcom_intranet.ServiceImpl;
 
 import com.example.enetcom_intranet.model.Classe;
 import com.example.enetcom_intranet.model.Subject;
+import com.example.enetcom_intranet.model.User;
 import com.example.enetcom_intranet.repository.SubjectRepository;
 import com.example.enetcom_intranet.service.ClasseService;
 import com.example.enetcom_intranet.service.SubjectService;
@@ -30,8 +31,13 @@ public class SubjectServiceImpl implements SubjectService {
 
     @Override
     public Subject getSubjectById(Integer id) {
-        return subjectRepository.findById(id).get();
+        if (id == null) {
+            return null;
+        }
+        return subjectRepository.findById(id).isPresent() ?
+                subjectRepository.findById(id).get() : null;
     }
+
 
     @Override
     public Subject insert(Subject subject) {

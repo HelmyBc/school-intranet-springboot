@@ -2,7 +2,6 @@ package com.example.enetcom_intranet.controller;
 
 
 import com.example.enetcom_intranet.model.*;
-import com.example.enetcom_intranet.repository.ClasseRepository;
 import com.example.enetcom_intranet.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
 @RestController
 @RequestMapping("/api/subject")
@@ -132,6 +130,8 @@ public class SubjectController {
         }
         return new ResponseEntity<>(courses, HttpStatus.OK);
     }
+
+
 
     @GetMapping("/{id}/tds")
     public ResponseEntity<List<Td>> getAllSubjectTds(@PathVariable Integer id) {
