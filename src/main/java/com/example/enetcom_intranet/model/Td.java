@@ -26,5 +26,7 @@ public class Td extends BaseEntity {
 
     private int attachmentId;
 
+    private String pdfUrl;
+
 
 }
