@@ -36,6 +36,9 @@ public class UserController {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    PostService postService;
+
 
     @PostMapping("/login")
     public ResponseEntity<User> Login(@RequestBody User user) {
@@ -105,6 +108,21 @@ public class UserController {
 //        return null;
     }
 
+    @GetMapping("/{id}/posts")
+    public ResponseEntity<List<Post>> getUserPosts(@PathVariable Integer id) {
+        User user = userService.getUserById(id);
+        List<Post> posts = new java.util.ArrayList<>(Collections.emptyList());
+        List<Post> allPosts = postService.getPosts();
+        List<Integer> postsIds = user.getPostsId();
+        for (int i = 0; i < allPosts.size(); i++) {
+            if (postsIds.contains(allPosts.get(i).getId())) {
+                posts.add(allPosts.get(i));
+            }
+        }
+        return new ResponseEntity<>(posts, HttpStatus.OK);
+    }
+
+    //For students
     @GetMapping("/{id}/subjects")
     public ResponseEntity<List<Subject>> getAllSubjects(@PathVariable Integer id) {
         User user = userService.getUserById(id);
@@ -143,8 +161,20 @@ public class UserController {
         return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
     }
 
-    @GetMapping({"/{id}/posts"})
-    public ResponseEntity<List<Integer>> getUserPosts(@PathVariable Integer id) {
+    //FOR STUDENTS
+    @GetMapping({"/{id}/classe"})
+    public ResponseEntity<Classe> getUserClasse(@PathVariable Integer id) {
+
+        if (Objects.equals(userService.getUserById(id).getUserType(), "Student")) {
+            Student user = studentService.getStudentById(id);
+            Classe classe = classeService.getClasseById(user.getClasseId());
+            return new ResponseEntity<>(classe, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+    }
+
+    @GetMapping({"/{id}/postsIds"})
+    public ResponseEntity<List<Integer>> getUserPostsIds(@PathVariable Integer id) {
         return new ResponseEntity<>(userService.getUserById(id).getPostsId(), HttpStatus.OK);
     }
 
