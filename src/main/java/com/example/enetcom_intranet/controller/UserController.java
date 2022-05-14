@@ -1,6 +1,5 @@
 package com.example.enetcom_intranet.controller;
 
-import com.example.enetcom_intranet.ResponseData;
 import com.example.enetcom_intranet.model.*;
 import com.example.enetcom_intranet.repository.UserRepository;
 import com.example.enetcom_intranet.service.*;
@@ -178,14 +177,14 @@ public class UserController {
         return new ResponseEntity<>(user1, HttpStatus.CREATED);
     }
 
-    //The function receives a PUT request, updates the Student with the specified Id and returns the updated student
+    //The function receives a PUT request, updates the Student with the specified id and returns the updated student
     @PutMapping({"/{id}"})
     public ResponseEntity<User> updateUser(@PathVariable("id") Integer id, @RequestBody User user) {
         userService.updateUser(id, user);
         return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
     }
 
-    //The function receives a DELETE request, deletes the Student with the specified Id.
+    //The function receives a DELETE request, deletes the Student with the specified id.
     @DeleteMapping({"/{id}"})
     public ResponseEntity<User> deleteUser(@PathVariable("id") Integer id) {
         userService.deleteUser(id);
