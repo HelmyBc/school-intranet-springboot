@@ -87,7 +87,7 @@ public class UserController {
         return null;
     }
 
-
+    //FOR TEACHERS
     @GetMapping("/{id}/classes/{id1}/subjects")
     public ResponseEntity<List<Subject>> getAllClasseSubjects(@PathVariable Integer id, @PathVariable Integer id1) {
         User user = userService.getUserById(id);
@@ -140,16 +140,6 @@ public class UserController {
                 }
             }
             return new ResponseEntity<>(subjects, HttpStatus.OK);
-        } else if (Objects.equals(user.getUserType(), "Teacher")) {
-            List<Integer> subjectsIds = teacherService.getTeacherById(id).getSubjectsId();
-
-            for (int i = 0; i < allSubjects.size(); i++) {
-                if (subjectsIds.contains(allSubjects.get(i).getId())) {
-                    subjects.add(allSubjects.get(i));
-                }
-            }
-            return new ResponseEntity<>(Collections.emptyList(), HttpStatus.OK);
-
         }
 
         return null;
