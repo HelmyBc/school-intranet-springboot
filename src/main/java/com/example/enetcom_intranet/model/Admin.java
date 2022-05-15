@@ -2,7 +2,6 @@ package com.example.enetcom_intranet.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -10,11 +9,8 @@ import javax.persistence.Entity;
 @Entity
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
-@DiscriminatorValue("Student")
-public class Student extends User {
+@DiscriminatorValue("Admin")
+public class Admin extends User {
 
-    private int classeId;
-    private int depId;
 
 }
